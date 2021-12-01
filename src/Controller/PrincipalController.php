@@ -7,6 +7,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\Employe;
+use App\Entity\Lieu;
+
 
 class PrincipalController extends AbstractController
 {
@@ -62,5 +64,15 @@ class PrincipalController extends AbstractController
         $employe = $doctrine->getRepository(Employe::class)->find($id);
         $titre = "Employé n° ". $id;
         return $this->render('principal/unemploye.html.twig', compact('titre', 'employe'));
+    }
+    
+    /**
+     * @Route("/emploetout/{id}", name="employetout", requirements={"id":"\d+"})
+     * @param ManagerRegistry $doctrine
+     */
+    public function afficheUnEmployeTout(ManagerRegistry $doctrine, int $id) {
+        $employe = $doctrine->getRepository(Employe::class)->find($id);
+        $titre = "Employé n° " . $id;
+        return $this->render('principal/unemployetout.html.twig', compact('titre', 'employe'));
     }
 }

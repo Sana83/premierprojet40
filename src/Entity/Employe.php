@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\EmployeRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
  * @ORM\Entity(repositoryClass=EmployeRepository::class)
  */
@@ -26,6 +27,12 @@ class Employe
      * @ORM\Column(type="decimal", precision=9, scale=2)
      */
     private $salaire;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Lieu::class, inversedBy="employes")
+     * @ORM\JoinColumn(name = "idLieu", nullable=false)
+     */
+    private $lieu;
 
     public function getId(): ?int
     {
@@ -52,6 +59,18 @@ class Employe
     public function setSalaire(string $salaire): self
     {
         $this->salaire = $salaire;
+
+        return $this;
+    }
+
+    public function getLieu(): ?Lieu
+    {
+        return $this->lieu;
+    }
+
+    public function setLieu(?Lieu $lieu): self
+    {
+        $this->lieu = $lieu;
 
         return $this;
     }
