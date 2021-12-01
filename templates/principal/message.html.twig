@@ -4,11 +4,12 @@
 {% block title %} Tuto Symfony {% endblock %}
 
 {%  block body %}
+    {{ dump() }}
     <h1>Vous êtes né dans le département : {{ departement }}!</h1>
     <h2>Vous êtes un  
-        {% if sexe == 'g' %}
+        {% if sexe == 'G' %}
             garcon !
-        {% elseif sexe == 'f' %}
+        {% elseif sexe == 'F' %}
             fille !
         {% else %}
             Inconnu !</h2>
