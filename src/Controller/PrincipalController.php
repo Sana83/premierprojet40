@@ -67,7 +67,7 @@ class PrincipalController extends AbstractController
     }
     
     /**
-     * @Route("/emploetout/{id}", name="employetout", requirements={"id":"\d+"})
+     * @Route("/emploetout/{id}", name="unemployetout", requirements={"id":"\d+"})
      * @param ManagerRegistry $doctrine
      */
     public function afficheUnEmployeTout(ManagerRegistry $doctrine, int $id) {
