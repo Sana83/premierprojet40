@@ -38,7 +38,7 @@ class Contact
 
     /**
      * @ORM\Column(type="string", length=15)
-     * @Assert\Regex("/^[0][6-7]{\s[0-9]{2}){4}/")
+     * @Assert\Regex("/^[0][6-7](\s[0-9]{2}){4}/")
      */
     private $tel;
 

@@ -16,15 +16,15 @@ use Symfony\Component\HttpFoundation\Request;
 //use Symfony\Bridge\Doctrine\ManagerRegistry;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\Contact;
+use App\Service\GestionContact;
 
 class ContactController extends AbstractController
 {
     /**
-     * @Route("/contact/", name="contact")
+     * @Route("/contact", name="contact")
      */
-    public function contact(Request $request, ManagerRegistry $doctrine ): Response
-    {
-        $contact = new contact();
+    public function contact(Request $request, GestionContact $gestionContact){
+        $contact = new Contact();
         
         $form = $this->createFormBuilder($contact)
                 ->add('titre', ChoiceType::class, array(
@@ -55,16 +55,18 @@ class ContactController extends AbstractController
         
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
-            $contact = $form->getData();
-            $contact->setDatePremierContact(new \DateTime());
-            $em = $doctrine->getManager();
-            $em->persist($contact);
-            $em->flush();
+//            $contact = $form->getData();
+//            $contact->setDatePremierContact(new \DateTime());
+//            $em = $doctrine->getManager();
+//            $em->persist($contact);
+//            $em->flush();
+            $gestionContact->creerContact($contact);
+            $gestionContact->envoieMailContact($contact);
             return $this->redirectToRoute("principal");
         }
-        return $this->render('contact/contact.html.twig',[
-            'formContact' =>$form->createView(),
-            'titre'=>'Formulaire de contact',
-        ]);
+        return $this->render('contact/contact.html.twig',
+                ['formContact' =>$form->createView(),
+                'titre'=>'Formulaire de contact',
+                ]);
     }
 }
